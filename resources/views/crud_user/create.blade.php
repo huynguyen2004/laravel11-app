@@ -6,7 +6,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-4">
                     <div class="card">
-                        <h3 class="card-header text-center">Create User</h3>
+                        <h3 class="text-center pt-5 pb-3">Create User</h3>
                         <div class="card-body">
                             <form action="{{ route('user.postUser') }}" method="POST">
                                 @csrf
@@ -31,6 +31,7 @@
                                         <span class="text-danger">{{ $errors->first('address') }}</span>
                                     @endif
                                 </div>
+                
                                 <div class="form-group mb-3">
                                     <input type="text" placeholder="Email" id="email_address" class="form-control"
                                            name="email" required autofocus>
