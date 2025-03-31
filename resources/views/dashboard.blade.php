@@ -22,5 +22,9 @@
 </nav>
 
 @yield('content')
+
+    <footer style="text-align: center; padding-top: 10px; background-color:rgb(255, 255, 255); position: fixed; bottom: 0; width: 100%;">
+        <p>Lập trình back end web 2 @2025</p>
+    </footer>
 </body>
 </html>
