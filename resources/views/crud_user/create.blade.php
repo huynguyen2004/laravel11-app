@@ -18,6 +18,22 @@
                                         <span class="text-danger">{{ $errors->first('name') }}</span>
                                     @endif
                                 </div>
+                                <div class="form-group mb-3 text-center">
+                                     <label for="Live" class="form-label">Live</label>
+                                    <input type="text" id="live" class="form-control" name="live"
+                                           required autofocus>
+                                    @if ($errors->has('live'))
+                                        <span class="text-danger">{{ $errors->first('live') }}</span>
+                                    @endif
+                                </div>
+                                <div class="form-group mb-3 text-center">
+                                     <label for="GitHub" class="form-label">GitHub</label>
+                                    <input type="text" id="github" class="form-control" name="github"
+                                           required autofocus>
+                                    @if ($errors->has('github'))
+                                        <span class="text-danger">{{ $errors->first('github') }}</span>
+                                    @endif
+                                </div>
 
                 
                                 <div class="form-group mb-3 text-center">
