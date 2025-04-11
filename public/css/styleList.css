@@ -131,7 +131,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     flex: 0 0 calc(25% - 20px);
     /* Đảm bảo 4 phim hiển thị đều nhau */
-    margin: 0 10px;
+    margin: 0 2px;
     /* Khoảng cách giữa các phim */
     position: relative;
 }
