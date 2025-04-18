@@ -5,8 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Users List</h3>
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="card-title">{{ $roleName }} Users</h3>
+                    <a href="{{ route('user.list') }}" class="btn btn-secondary">Back to All Users</a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -27,11 +28,9 @@
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>
-                                        <a href="{{ route('user.role', $user->role) }}" class="text-decoration-none">
-                                            <span class="badge bg-{{ $user->role == 'admin' ? 'danger' : ($user->role == 'manager' ? 'warning' : ($user->role == 'editor' ? 'info' : 'success')) }}">
-                                                {{ ucfirst($user->role) }}
-                                            </span>
-                                        </a>
+                                        <span class="badge bg-{{ $user->role == 'admin' ? 'danger' : ($user->role == 'manager' ? 'warning' : ($user->role == 'editor' ? 'info' : 'success')) }}">
+                                            {{ ucfirst($user->role) }}
+                                        </span>
                                     </td>
                                     <td>
                                         <a href="{{ route('user.show', $user->id) }}" class="btn btn-info btn-sm">View</a>
@@ -55,4 +54,4 @@
         </div>
     </div>
 </div>
-@endsection
+@endsection 

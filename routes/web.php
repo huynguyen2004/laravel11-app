@@ -2,7 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CrudUserController;
+<<<<<<< HEAD
 use App\Http\Controllers\MovieController;
+=======
+use App\Http\Controllers\UserController;
+>>>>>>> b66230b (first commit)
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +37,13 @@ Route::get('dashboard', [CrudUserController::class, 'dashboard']);
 // Route::get('list', [CrudUserController::class, 'listUser'])->name('user.list');
 
 // Route::get('signout', [CrudUserController::class, 'signOut'])->name('signout');
+
+Route::get('/users', [UserController::class, 'list'])->name('user.list');
+Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
+Route::put('/users/{id}', [UserController::class, 'update'])->name('user.update');
+Route::delete('/users/{id}', [UserController::class, 'delete'])->name('user.delete');
+Route::get('/users/role/{role}', [UserController::class, 'showByRole'])->name('user.role');
+Route::get('/users/{id}', [UserController::class, 'show'])->name('user.show');
 
 Route::get('/', function () {
     return view('welcome');
