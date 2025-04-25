@@ -1,53 +1,43 @@
 @extends('dashboard')
 
 @section('content')
-    <main class="login-form">
-        <div class="container">
+    <main class="signup-form">
+        <div class="cotainer">
             <div class="row justify-content-center">
-                <table>
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Orders</th> <!-- Thêm cột Orders -->
-            <th>Role</th>
-            <th>Thao tác</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($users as $index => $user)
-        <tr>
-            <td>{{ $index + 1 + ($users->currentPage() - 1) * $users->perPage() }}</td>
-            <td>{{ $user->name }}</td>
-            <td>{{ $user->email }}</td>
-            <td>
-                @if ($user->orders->isNotEmpty())
-                    {{ $user->orders->count() }} đơn hàng
-                    (<a href="{{ route('orders.show', $user->id) }}">Xem chi tiết</a>)
-                @else
-                    <em>Không có đơn hàng</em>
-                @endif
-            </td>
-            <td>
-                @if (!empty($user->roles) && $user->roles->isNotEmpty())
-                    {{ $user->roles->pluck('name')->implode(', ') }}
-                @else
-                    <em>Không có vai trò</em>
-                @endif
-            </td>
-            <td>
-                <a href="{{ route('user.updateUser', $user->id) }}">Edit</a>
-                <a href="#" onclick="if(confirm('Bạn có chắc muốn xóa?')) { document.getElementById('delete-form-{{ $user->id }}').submit(); }">Delete</a>
-                <form id="delete-form-{{ $user->id }}" action="{{ route('user.delete', $user->id) }}" method="POST" style="display: none;">
-                    @csrf
-                    @method('DELETE')
-                </form>
-            </td>
-        </tr>
-        @endforeach
-    </tbody>
-</table>
+                <div class="col-md-4">
+                    <div class="card">
+                        <h3 class="card-header text-center">Create User</h3>
+                        <div class="card-body">
+                            <form action="{{ route('user.postUser') }}" method="POST">
+                                @csrf
+                                <div class="form-group mb-3">
+                                    <input type="text" placeholder="Name" id="name" class="form-control" name="name"
+                                           required autofocus>
+                                    @if ($errors->has('name'))
+                                        <span class="text-danger">{{ $errors->first('name') }}</span>
+                                    @endif
+                                </div>
+                                <div class="form-group mb-3">
+                                    <input type="text" placeholder="Email" id="email_address" class="form-control"
+                                           name="email" required autofocus>
+                                    @if ($errors->has('email'))
+                                        <span class="text-danger">{{ $errors->first('email') }}</span>
+                                    @endif
+                                </div>
+                                <div class="form-group mb-3">
+                                    <input type="password" placeholder="Password" id="password" class="form-control"
+                                           name="password" required>
+                                    @if ($errors->has('password'))
+                                        <span class="text-danger">{{ $errors->first('password') }}</span>
+                                    @endif
+                                </div>
+                                <div class="d-grid mx-auto">
+                                    <button type="submit" class="btn btn-dark btn-block">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>

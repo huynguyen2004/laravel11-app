@@ -3,25 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
-class OrderController extends Controller
+class ProductController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the products.
      */
-    public function index(Request $request)
+    public function index()
     {
-        $user_id = $request->get('user_id');
-        $orders = Order::when($user_id, function($query) use ($user_id) {
-            return $query->where('user_id', $user_id);
-        })->paginate(10);
-
-        $products = Product::all();
-        
-        return view('orders.index', compact('orders', 'products'));
+        $products = Product::paginate(10);
+        return view('products.index', compact('products'));
     }
 
     /**
@@ -41,11 +34,11 @@ class OrderController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified product.
      */
-    public function show(Order $order)
+    public function show(Product $product)
     {
-        return view('orders.show', compact('order'));
+        return view('products.show', compact('product'));
     }
 
     /**

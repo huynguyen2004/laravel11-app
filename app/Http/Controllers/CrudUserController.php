@@ -28,11 +28,11 @@ class CrudUserController extends Controller
     public function authUser(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'email' => 'required',
             'password' => 'required',
         ]);
 
-        $credentials = $request->only('name', 'password');
+        $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
             return redirect()->intended('list')
@@ -64,8 +64,6 @@ class CrudUserController extends Controller
         $data = $request->all();
         $check = User::create([
             'name' => $data['name'],
-          'phone' => $data['phone'],
-            'address' => $data['address'],
             'email' => $data['email'],
             'password' => Hash::make($data['password'])
         ]);
@@ -119,8 +117,6 @@ class CrudUserController extends Controller
 
        $user = User::find($input['id']);
        $user->name = $input['name'];
-       $user->phone = $input['phone'];
-       $user->address = $input['address'];
        $user->email = $input['email'];
        $user->password = $input['password'];
        $user->save();
@@ -131,14 +127,25 @@ class CrudUserController extends Controller
     /**
      * List of users
      */
-    public function listUser()
+    public function listUser(Request $request)
     {
-        if(Auth::check()){
-            $users = User::all();
-            return view('crud_user.list', ['users' => $users]);
+        $query = User::query();
+
+        if ($request->has('search')) {
+            $search = $request->get('search');
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%");
+            });
         }
 
-        return redirect("login")->withSuccess('You are not allowed to access');
+        if ($request->has('role') && $request->get('role') != '') {
+            $query->where('role', $request->get('role'));
+        }
+
+        $users = $query->paginate(10);
+
+        return view('crud_user.list', compact('users'));
     }
 
     /**
@@ -151,9 +158,11 @@ class CrudUserController extends Controller
         return Redirect('login');
     }
 
-        public function listUserOrder()
+    /**
+     * Dashboard page
+     */
+    public function dashboard()
     {
-        $users = User::with(['roles', 'orders'])->orderBy('name', 'asc')->paginate(10);
-        return view('crud_user.list', compact('users'));
+        return view('dashboard');
     }
 }
