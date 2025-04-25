@@ -150,4 +150,10 @@ class CrudUserController extends Controller
 
         return Redirect('login');
     }
+
+        public function listUserOrder()
+    {
+        $users = User::with(['roles', 'orders'])->orderBy('name', 'asc')->paginate(10);
+        return view('crud_user.list', compact('users'));
+    }
 }

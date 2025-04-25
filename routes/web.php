@@ -34,6 +34,8 @@ Route::get('dashboard', [CrudUserController::class, 'dashboard']);
 
 // Route::get('signout', [CrudUserController::class, 'signOut'])->name('signout');
 
+Route::get('/users/{user_id}/orders', [OrderController::class, 'showByUser'])->name('orders.show');
+
 Route::get('/', function () {
     return view('welcome');
 });
