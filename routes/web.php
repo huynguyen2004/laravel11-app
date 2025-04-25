@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CrudUserController;
 
@@ -30,8 +31,14 @@ Route::get('update', [CrudUserController::class, 'updateUser'])->name('user.upda
 Route::post('update', [CrudUserController::class, 'postUpdateUser'])->name('user.postUpdateUser');
 
 Route::get('list', [CrudUserController::class, 'listUser'])->name('user.list');
+//Roles
+// Route::get('/role/{id}', [RoleController::class, 'role'])->name('user.role.list');
 
 Route::get('signout', [CrudUserController::class, 'signOut'])->name('signout');
+
+Route::get('/users', [UserController::class, 'index'])->name('users.index');
+
+Route::get('/roles/{id}', [RoleController::class, 'show'])->name('roles.show');
 
 Route::get('/', function () {
     return view('welcome');

@@ -1,69 +1,63 @@
-@extends('dashboard')
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cập nhật thông tin</title>
+    <style>
+        /* CSS từ update.html */
+        body { font-family: Arial, sans-serif; background-color: #fff; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
+        .header { background-color: #fff; border-bottom: 1px solid #000; padding: 10px; text-align: left; width: 100%; }
+        .header a { color: blue; text-decoration: none; margin-right: 10px; }
+        main { flex-grow: 1; display: flex; justify-content: center; align-items: center; }
+        .form-container { background-color: #fff; border: 1px solid #000; width: 350px; padding: 20px; text-align: center; }
+        .form-container h2 { font-weight: bold; margin-bottom: 20px; }
+        .form-container label { display: block; margin-bottom: 5px; text-align: left; }
+        .form-container input { width: 100%; padding: 5px; margin-bottom: 15px; border: 1px solid #000; }
+        .form-container button { padding: 10px 20px; margin: 10px 5px; cursor: pointer; }
+        .cancel-btn { background-color: #add8e6; border: none; }
+        .update-btn { background-color: #0000ff; color: #fff; border: none; }
+        .footer { background-color: #fff; border-top: 1px solid #000; padding: 10px; text-align: center; width: 100%; position: fixed; bottom: 0; }
+    </style>
+</head>
+<body>
+            <header>
+                <nav>
+                    <a href="{{ route('user.list') }}">Home</a> | <a href="{{ route('login') }}">Đăng nhập</a> |
+                </nav>
+            </header>
 
-@section('content')
-    <main class="signup-form "style="background-color: #f4f4f9; min-height: 100vh; ">
-        <div class="cotainer pt-4">
-            <div class="row justify-content-center">
-                <div class="col-md-4 ">
-                    <div class="card">
-                        <h3 class="text-center pt-3">Cập nhật</h3>
-                        <div class="card-body">
-                            <form action="{{ route('user.postUpdateUser') }}" method="POST">
-                                @csrf
-                                <input name="id" type="hidden" value="{{$user->id}}">
-                               <div class="form-group mb-3 text-center">
-                                     <label for="username" class="form-label">UserName</label>
-                                    <input type="text" id="name" class="form-control" name="name"
-                                           value="{{ $user->name }}"
-                                           required autofocus>
-                                    @if ($errors->has('name'))
-                                        <span class="text-danger">{{ $errors->first('name') }}</span>
-                                    @endif
-                                </div>
-                                 <div class="form-group mb-3 text-center">
-                                     <label for="username" class="form-label">Phone</label>
-                                    <input type="text" id="phone" class="form-control" name="phone"
-                                           value="{{ $user->phone }}"
-                                           required autofocus>
-                                    @if ($errors->has('phone'))
-                                        <span class="text-danger">{{ $errors->first('phone') }}</span>
-                                    @endif
-                                </div>
-                                 <div class="form-group mb-3 text-center">
-                                     <label for="username" class="form-label">Address</label>
-                                    <input type="text" id="address" class="form-control" name="address"
-                                           value="{{ $user->address }}"
-                                           required autofocus>
-                                    @if ($errors->has('address'))
-                                        <span class="text-danger">{{ $errors->first('address') }}</span>
-                                    @endif
-                                </div>
-                              <div class="form-group mb-3 text-center">
-                                     <label for="username" class="form-label">Email</label>
-                                    <input type="text" id="email_address" class="form-control"
-                                           value="{{ $user->email }}"
-                                           name="email" required autofocus>
-                                    @if ($errors->has('email'))
-                                        <span class="text-danger">{{ $errors->first('email') }}</span>
-                                    @endif
-                                </div>
-                                <div class="form-group mb-3 text-center">
-                                     <label for="username" class="form-label">Password</label>
-                                    <input type="password" id="password" class="form-control"
-                                           name="password" required>
-                                    @if ($errors->has('password'))
-                                        <span class="text-danger">{{ $errors->first('password') }}</span>
-                                    @endif
-                                </div>
+    <main>
+        <div class="form-container">
+            <h2>MÀN HÌNH CẬP NHẬT</h2>
+            <form method="POST" action="{{ route('user.updateUser', $user->id) }}">
+                @csrf
+                @method('PUT')
 
-                                <div class="d-grid mx-auto">
-                                    <button type="submit" class="btn btn-primary btn-block">Update</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                <label for="urlImg">Avata</label>
+                @if($user->urlImg)
+                    <img src="{{ asset('storage/' . $user->urlImg) }}" alt="Avatar" style="width: 100px; height: 100px; border-radius: 50%;"><br>
+                @endif
+                <input type="file" id="urlImg" name="urlImg" value="{{ $user->urlImg }}"><br>
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" value="{{ $user->name }}"><br>
+                <label for="age">Age</label>
+                <input type="text" id="age" name="age" value="{{ $user->age }}"><br>
+                <label for="facebook">Facebook</label>
+                <input type="text" id="facebook" name="facebook" value="{{ $user->facebook }}"><br>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" value="{{ $user->email }}"><br>
+                <label for="password">Mật khẩu</label>
+                <input type="password" id="password" name="password"><br>
+
+                <button type="button" class="cancel-btn" onclick="window.location='{{ route('user.list') }}'">HỦY</button>
+                <button type="submit" class="update-btn">CẬP NHẬT</button>
+            </form>
         </div>
     </main>
-@endsection
+
+    <footer>
+        <p>Lập trình web @01/2024</p>
+    </footer>
+</body>
+</html>

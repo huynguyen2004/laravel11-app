@@ -14,6 +14,15 @@ use Illuminate\Support\Facades\Auth;
 class CrudUserController extends Controller
 {
 
+      public function index()
+    {
+        // Lấy tất cả người dùng và quan hệ roles của họ
+        $users = User::with('roles')->get();
+
+        return view('users.index', compact('users'));
+    }
+
+     const MAX_RECORDS = 10;
     /**
      * Login page
      */
@@ -133,12 +142,10 @@ class CrudUserController extends Controller
      */
     public function listUser()
     {
-        if(Auth::check()){
-            $users = User::all();
-            return view('crud_user.list', ['users' => $users]);
-        }
+        // Lấy danh sách users kèm theo roles, phân trang
+        $users = User::with('roles')->orderBy('name', 'asc')->paginate(10);
 
-        return redirect("login")->withSuccess('You are not allowed to access');
+        return view('crud_user.list', compact('users'));
     }
 
     /**
