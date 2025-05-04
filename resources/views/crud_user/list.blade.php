@@ -109,6 +109,7 @@
                     <th>#</th>
                     <th>Username</th>
                     <th>Email</th>
+                    <th>Order</th>
                     <th>Role</th>
                     <th>Thao tác</th>
                 </tr>
@@ -119,6 +120,18 @@
                     <td>{{ $index + 1 + ($users->currentPage() - 1) * $users->perPage() }}</td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
+                     <td>
+                        <ul>
+                            @foreach ($user->orders as $order)
+                                <li>
+                                    ID: {{ $order->id }},
+                                    Tổng tiền: {{ $order->total_amount }},
+                                    Địa chỉ: {{ $order->address }},
+                                    Ngày tạo: {{ $order->created_at }}
+                                </li>
+                            @endforeach
+                        </ul>
+                    </td>
                     <td>
                       @if ($user->roles->isNotEmpty())
                             @foreach ($user->roles as $role)

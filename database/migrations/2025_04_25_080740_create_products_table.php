@@ -4,23 +4,28 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProductsTable extends Migration
-{
-    public function up()
+return new class extends Migration {
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('image')->nullable(); // Có thể lưu đường dẫn ảnh
-            $table->decimal('price', 10, 2); // Giá, ví dụ: 999.99
-            $table->integer('quantity'); // Số lượng tồn kho
-            $table->text('description')->nullable();
-            $table->timestamps(); // created_at, updated_at
+            $table->id(); // id là khóa chính
+            $table->string('name'); // Tên sản phẩm
+            $table->string('image')->nullable(); // Đường dẫn ảnh (cho phép null)
+            $table->decimal('price', 10, 2); // Giá sản phẩm
+            $table->integer('quantity'); // Số lượng sản phẩm
+            $table->text('description')->nullable(); // Mô tả sản phẩm
+            $table->timestamps(); // created_at và updated_at
         });
     }
 
-    public function down()
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
     {
         Schema::dropIfExists('products');
     }
-}
+};

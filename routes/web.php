@@ -40,6 +40,8 @@ Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
 Route::get('/roles/{id}', [RoleController::class, 'show'])->name('roles.show');
 
+Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
+
 Route::get('/', function () {
     return view('welcome');
 });

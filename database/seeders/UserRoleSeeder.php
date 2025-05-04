@@ -53,7 +53,7 @@ class UserRoleSeeder extends Seeder
         $roles = [1, 2, 3]; // Role IDs
 
         // Gán quyền ngẫu nhiên cho 100 tài khoản
-        for ($i = 1; $i <= 100; $i++) {
+        for ($i = 1; $i <= 50; $i++) {
             $role_id = $roles[array_rand($roles)]; // Chọn ngẫu nhiên role ID
 
             DB::table('user_role')->insert([

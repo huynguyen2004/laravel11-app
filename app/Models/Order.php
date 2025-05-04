@@ -6,15 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    protected $fillable = ['user_id', 'total_amount', 'address'];
-
-    public function user()
+   public function list()
     {
-        return $this->belongsTo(User::class);
-    }
+        // Lấy danh sách tất cả người dùng và đơn hàng của họ
+        $users = User::with('orders')->get();
 
-    public function orderDetails()
-    {
-        return $this->hasMany(OrderDetail::class);
+        return view('user.list', compact('users'));
     }
 }
