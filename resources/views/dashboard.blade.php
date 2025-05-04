@@ -9,7 +9,7 @@
 <body>
 <nav class="navbar" style="display: flex; background-color: #e3f2fd; justify-content: center; padding: 10px 0;">
     <div style="display: inline-block;">
-        <a href="#" style="">Home</a>
+        <a href="{{ route('user.list') }}" style="">Home</a>
         <span style="margin: 0 5px;">|</span>
         @guest
             <a href="{{ route('login') }}" style="text-decoration: none; color: black;">Đăng nhập</a>

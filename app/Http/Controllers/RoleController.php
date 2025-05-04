@@ -10,6 +10,6 @@ class RoleController extends Controller
     {
         $role = Role::with('users')->findOrFail($id);
 
-        return view('roles.show', compact('role'));
+        return view('role.show', compact('role'));
     }
 }

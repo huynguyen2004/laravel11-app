@@ -20,9 +20,9 @@ class UserSeeder extends Seeder
 
         $roles = DB::table('roles')->pluck('name')->toArray();
 
-        if (empty($roles)) {
-            throw new Exception('Bảng roles không có dữ liệu. Vui lòng seed dữ liệu roles trước.');
-        }
+        // if (empty($roles)) {
+        //     throw new Exception('Bảng roles không có dữ liệu. Vui lòng seed dữ liệu roles trước.');
+        // }
 
         for ($i = 0; $i < 100; $i++) {
             DB::table('users')->insert([
